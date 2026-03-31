@@ -65,6 +65,12 @@ echo "your_new_line_content" >> filename.txt
 # Delete all commented lines (start with #)
 sed -i '/^#/d' server.conf
 
+# Add '# ' into lines from 10 to final line
+sed -i '10,$ s/^/# /' script.sh
+
+# Remove '# ' from lines from 10 to final line
+sed -i '10,$ s/^# //' script.sh
+
 # Delete all empty lines
 sed -i '/^$/d' server.conf
 ```
@@ -142,6 +148,24 @@ df -h
 # Check size of folders in current directory (1 level deep)
 du -sh * --max-depth=1 | sort -h
 # sort -h: Puts the biggest folders at the bottom so you see them last
+```
+
+## 12. Copy files between servers (scp)
+The 'scp' (Secure Copy) command uses SSH to transfer files.
+Basic Syntax: `scp [Options] [Source] [Destination]`
+
+### Case 1: use password for authentication
+* **Copy a single file:**
+```
+scp "D:/path/to/App.zip" username@192.168.1.245:/home/username/backup/
+```
+* **Copy an entire folder (Recursive)**
+```
+scp -r /path/to/folder username@192.168.1.245:/home/username/
+```
+### Case 2: use private key file for authentication
+```
+scp -i "D:/path/to/key.pem" "D:/path/to/config.json" ubuntu@152.176.85.146:/App/frontend/
 ```
 
 # END
